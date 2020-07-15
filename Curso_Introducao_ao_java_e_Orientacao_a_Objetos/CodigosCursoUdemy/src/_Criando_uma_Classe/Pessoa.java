@@ -1,4 +1,4 @@
-package aulapratica1;
+package _Criando_uma_Classe;
 
 // defino a classe pessoa
 public class Pessoa {

@@ -1,4 +1,4 @@
-package aulapratica1;
+package _Criando_uma_Classe;
 
 // tudo o que tiver {..}App significa que é uma classe executável
 
