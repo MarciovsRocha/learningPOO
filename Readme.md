@@ -8,5 +8,5 @@ Cada pasta é referente a um curso online, dentro de cada pasta você encontrar�
 ---
 ## Lista de Cursos
 
- [x] Introdução ao Java e Orientação a Objetos
- [ ] Java Design Patterns and Architecture
+- [ x ] Introdução ao Java e Orientação a Objetos
+- [ ] Java Design Patterns and Architecture
