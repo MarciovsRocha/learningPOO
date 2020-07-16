@@ -67,7 +67,7 @@ public class Carro{
 
 ​	Uma classe deve ofertar apenas o que ela pode fazer e não necessariamente como ela faz, uma classe deve impedir o acesso direto ao seus atributos e métodos internos e disponibilizar somente métodos públicos.
 
-​	Atributos devem ser privados para que somente suas classes o vejam, caso seja necessário visualização externa de algum atributo deve-se criar um método getNomeAtributo() e este retorne o mesmo;
+​	Atributos devem ser privados para que somente suas classes o vejam, caso seja necessário visualização externa de algum atributo deve-se criar um método ***acessador*** , por exemplo getNomeAtributo(), ou para modificação de algum atributo deve-se criar um método ***modificador***, por exemplo setNomeAtributo(parâmetros); Normalmente é criado um método ***acessador*** e um método ***modificador*** para cada atributo.
 
 ```java
 public class Pessoa{
@@ -99,6 +99,103 @@ public class Pessoa{
 ### Mensagem 
 
 ​	Mensagem é a forma como um método interage com outro objeto, ou seja, é correspondente a chamada de um método do objeto, podendo ou não exigir a passada de parâmetros.
+
+### Herança
+
+​	***Herança*** é o que permite que uma classe herde de outra classe métodos e atributos, esta ação de dá apartir de uma ***SuperClasse*** para uma ***SubClasse*** por uso do  identificador ***extends***.  Uma ***SubClasse*** pode possuir apenas uma ***SuperClasse***.
+
+```java
+// SuperClasse Cliente
+public class Cliente {
+    
+    private String nome;
+    private int codigo;
+    private String endereco;
+    
+    public Cliente(String nome, String endereco, int codigo){
+        this.nome = nome;
+        this.endereco = endereco;
+        this.codigo = codigo;
+    }
+
+    public void setNome(String nome){
+        this.nome = nome;
+    }
+    
+    public void setEndereco(String endereco){
+        this.endereco = endereco;
+    }
+    
+    public void setCodigo(int codigo){
+        this.codigo = codigo;
+    }
+    
+    public String getNome(){
+        return nome;
+    }
+    
+    public String getEndereco(){
+        return endereco;
+    }
+    
+    public int getCodigo(){
+        return codigo;
+    }
+}
+```
+
+```java
+// SubClasse ClientePF
+public class ClientePF extends Cliente{
+    private String cpf;
+    
+    public ClientePF(int codigo, String nome, String cpf, String endereco){
+        super(nome,endereco,codigo);
+        this.cpf = cpf;
+    }
+    
+    public void setCpf(String cpf){
+        this.cpf = cpf;
+    }
+    
+    public String getCpf(){
+        return cpf;
+    }
+}
+```
+
+```java
+// SubClasse ClientePJ
+public class ClientePJ extends Cliente{
+    
+    private String cnpj;
+    
+    public ClientePJ(int codigo,String nome, String cnpj, String endereco){
+        super(nome,endereco,codigo);
+        this.cnpj = cnpj;
+    }
+    
+    public String getCnpj(){
+        return cnpj;
+    }
+    
+    public void setCnpj(String cnpj){
+        this.cnpj = cnpj;
+    }
+}
+```
+
+```java
+// classe ClienteApp
+public class ClienteApp {
+    
+    ClientePF clientepf1 = new ClientePF(1,"Nome do Cliente", "416.641.062-89","Alfredo Pinto");
+    ClientePJ clientepj1 = new ClientePJ(2,"asdas","asdasdas","asdasdas");
+    
+}
+```
+
+​	No exemplo acima é possível ver e compreender o conceito de ***Herança***, pois possuimos a ***SuperClasse Clientes*** que possui os atributos e métodos básicos de um cliente e estes atributos e métodos são herdados para as ***SubClasses ClientePF*** e ***ClientePJ***  sendo necessário somente a adição de seus atributos específicos.
 
 ### Sobrecarga de Métodos
 
