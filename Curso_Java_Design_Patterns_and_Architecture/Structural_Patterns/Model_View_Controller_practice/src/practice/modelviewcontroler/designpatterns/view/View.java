@@ -6,53 +6,79 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import com.sun.xml.internal.bind.v2.runtime.output.StAXExStreamWriterOutput;
+import practice.modelviewcontroler.designpatterns.controller.Controller;
 import practice.modelviewcontroler.designpatterns.model.Model;
 
 public class View extends JFrame implements ActionListener {
     private Model model;
-    private JButton helloButton;
-    private  JButton goodbyeButton;
+    private JButton okButton;
+    private JTextField nameField;
+    private JPasswordField passwordField;
+
+    private LoginListener loginListener;
 
     public View(Model model) throws HeadlessException {
         super("MVC Demo");
         this.model = model;
 
-        helloButton = new JButton("CLick Me!");
-        goodbyeButton = new JButton("GoodBye");
+        okButton = new JButton("Send");
+        nameField = new JTextField(10);
+        passwordField = new JPasswordField(10);
 
         setLayout(new GridBagLayout());
 
         // create a grid layout
         GridBagConstraints gc = new GridBagConstraints();
-
-        //set position of helloButton on the grid layout
-        gc.anchor = GridBagConstraints.CENTER;
+        // creating the Name lable
+        gc.anchor = GridBagConstraints.LAST_LINE_END;
         gc.gridx = 1;
         gc.gridy = 1;
         gc.weightx = 1;
         gc.weighty = 1;
+        gc.insets = new Insets(100,0,0,10);
         gc.fill = GridBagConstraints.NONE;
-        add(helloButton, gc); // add the helloButton on grid
 
-        // set the position of goodbyeButton on the grid layout
-        gc.anchor = GridBagConstraints.CENTER;
+        add(new JLabel("Name: "), gc);
+
+        gc.anchor = GridBagConstraints.LAST_LINE_START;
+        gc.gridx = 2;
+        gc.gridy = 1;
+        gc.weightx = 1;
+        gc.weighty = 1;
+        gc.insets = new Insets(100,0,0,10);
+        gc.fill = GridBagConstraints.NONE;
+
+        add(nameField, gc);
+
+        gc.anchor = GridBagConstraints.LINE_END;
         gc.gridx = 1;
         gc.gridy = 2;
         gc.weightx = 1;
         gc.weighty = 1;
+        gc.insets = new Insets(0,0,0,10);
         gc.fill = GridBagConstraints.NONE;
-        add(goodbyeButton, gc); // ad the goodbyeButton on grid
 
-        helloButton.addActionListener(this); // add a listener method to the helloButton
-        goodbyeButton.addActionListener(this); // add a listener method to the goodbyeButton
-        // create an anonymous method listener to goodbyeButton
-        goodbyeButton.addActionListener(new ActionListener(){
+        add(new JLabel("Password: "),gc);
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Sorry to see u go");
-            } // public void actionPerformed
-        }); //  goodbyeButton.addActionListener
+        gc.anchor = GridBagConstraints.LINE_START;
+        gc.gridx = 2;
+        gc.gridy =2;
+        gc.weightx = 1;
+        gc.weighty = 1;
+        gc.fill = GridBagConstraints.NONE;
+
+        add(passwordField, gc);
+
+        gc.anchor = GridBagConstraints.FIRST_LINE_START;
+        gc.gridx = 2;
+        gc.gridy = 3;
+        gc.weightx = 1;
+        gc.weighty = 100;
+        gc.fill = GridBagConstraints.NONE;
+
+        add(okButton,gc);
+
+        okButton.addActionListener(this);
 
         setSize(600,500);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -62,12 +88,19 @@ public class View extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        JButton source = (JButton) e.getSource();
-        if (source == helloButton){
-            System.out.println("Hello there!");
-        } // if (source == helloButton)
-        else{
-            System.out.println("Some Otter Button");
-        }// else
+        String password = new String(passwordField.getPassword());
+        String name = new String(nameField.getText());
+        fireLoginEvent(new LoginFormEvent(name, password));
     } //  public void actionPerformed
+
+    public void setLoginListener(LoginListener loginListener) {
+        this.loginListener = loginListener;
+    } // public void setLoginListener
+
+    public void fireLoginEvent(LoginFormEvent event){
+        if (loginListener != null){
+            loginListener.loginPerformed(event);
+        }
+    }
+
 } // public class View
